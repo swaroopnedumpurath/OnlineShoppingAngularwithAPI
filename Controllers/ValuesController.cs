@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineShopping.API.Data;
@@ -9,6 +10,7 @@ using OnlineShopping.API.Data;
 namespace DatingApp.API.Controllers
 {
     //http://localhost:5000/api/values
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -27,12 +29,14 @@ namespace DatingApp.API.Controllers
         //     var values=_context.Values.ToList();
         //     return Ok(values);
         // }
+        [AllowAnonymous]
         public async Task<IActionResult> GetValues()
         {
             var values=await _context.Values.ToListAsync();
             return Ok(values);
         }
 
+        [AllowAnonymous]
         // GET api/values/5
         [HttpGet("{id}")]
         // public ActionResult<string> Get(int id)
